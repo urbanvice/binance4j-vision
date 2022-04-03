@@ -1,4 +1,4 @@
-package com.binance4j.publicdata.spot;
+package com.binance4j.vision.spot;
 
 import java.io.IOException;
 import java.util.List;

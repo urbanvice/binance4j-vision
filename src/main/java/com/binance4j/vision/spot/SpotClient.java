@@ -1,7 +1,7 @@
-package com.binance4j.publicdata.spot;
+package com.binance4j.vision.spot;
 
-import com.binance4j.publicdata.content.CandlestickRequestExecutor;
-import com.binance4j.publicdata.content.DataRequestExecutor;
+import com.binance4j.vision.content.CandlestickRequestExecutor;
+import com.binance4j.vision.content.DataRequestExecutor;
 
 import retrofit2.Retrofit;
 

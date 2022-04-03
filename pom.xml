@@ -4,10 +4,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.binance4j</groupId>
-  <artifactId>binance4j-public-data</artifactId>
+  <artifactId>binance4j-vision</artifactId>
   <version>1.0.0</version>
-  <name>binance4j-public-data</name>
-  <url>https://github.com/binance4j/binance4j-public-data</url>
+  <name>binance4j-vision</name>
+  <url>https://github.com/binance4j/binance4j-vision</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>

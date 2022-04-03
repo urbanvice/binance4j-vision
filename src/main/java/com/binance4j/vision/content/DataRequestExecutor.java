@@ -1,4 +1,4 @@
-package com.binance4j.publicdata.content;
+package com.binance4j.vision.content;
 
 import java.io.IOException;
 import java.util.List;

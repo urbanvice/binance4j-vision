@@ -1,4 +1,4 @@
-package com.binance4j.publicdata.spot;
+package com.binance4j.vision.spot;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

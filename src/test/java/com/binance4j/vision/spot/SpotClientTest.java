@@ -13,6 +13,12 @@ import org.junit.jupiter.api.Test;
 public class SpotClientTest {
     SpotClient client;
 
+    CandlestickInterval interval = CandlestickInterval.ONE_MINUTE;
+    String symbol = "SHIBEUR";
+    String year = "2022";
+    String month = "01";
+    String day = "01";
+
     public SpotClientTest() {
         client = new SpotClient();
     }
@@ -20,7 +26,7 @@ public class SpotClientTest {
     @Test
     void testGetKlines() throws IOException, InterruptedException, ExecutionException {
         CompletableFuture<Void> future = new CompletableFuture<>();
-        client.getKlines("SHIBEUR", CandlestickInterval.ONE_MINUTE, "2022", "01", "01")
+        client.getKlines(symbol, interval, year, month, day)
                 .getData(cb -> {
                     assertTrue(cb.size() > 0);
                     cb.forEach(c -> {
@@ -46,7 +52,7 @@ public class SpotClientTest {
     @Test
     void testKlinesChecksum() throws InterruptedException, ExecutionException {
         CompletableFuture<Void> future = new CompletableFuture<>();
-        client.getKlinesChecksum("SHIBEUR", CandlestickInterval.ONE_MINUTE, "2022", "01", "01").getChecksum(cb -> {
+        client.getKlinesChecksum(symbol, interval, year, month, day).getChecksum(cb -> {
             assertNotNull(cb.getChecksum());
             assertNotNull(cb.getFileName());
             future.complete(null);
@@ -55,11 +61,10 @@ public class SpotClientTest {
     }
 
     @Test
-    void getTrades() throws IOException, InterruptedException, ExecutionException {
+    void testGetTrades() throws IOException, InterruptedException, ExecutionException {
         CompletableFuture<Void> future = new CompletableFuture<>();
-        client.getTrades("SHIBEUR", "2022", "01", "01")
+        client.getTrades(symbol, year, month, day)
                 .getData(cb -> {
-                    System.out.println(cb);
                     assertTrue(cb.size() > 0);
                     cb.forEach(c -> {
                         assertNotNull(c.getIsBestMatch());
@@ -77,11 +82,21 @@ public class SpotClientTest {
     }
 
     @Test
-    void getAggTrades() throws IOException, InterruptedException, ExecutionException {
+    void testTradesChecksum() throws InterruptedException, ExecutionException {
         CompletableFuture<Void> future = new CompletableFuture<>();
-        client.getAggTrades("SHIBEUR", "2022", "01", "01")
+        client.getTradesChecksum(symbol, year, month, day).getChecksum(cb -> {
+            assertNotNull(cb.getChecksum());
+            assertNotNull(cb.getFileName());
+            future.complete(null);
+        });
+        assertNull(future.get());
+    }
+
+    @Test
+    void testGetAggTrades() throws IOException, InterruptedException, ExecutionException {
+        CompletableFuture<Void> future = new CompletableFuture<>();
+        client.getAggTrades(symbol, year, month, day)
                 .getData(cb -> {
-                    System.out.println(cb);
                     assertTrue(cb.size() > 0);
                     cb.forEach(c -> {
                         assertNotNull(c.getIsBestMatch());
@@ -96,6 +111,17 @@ public class SpotClientTest {
                     future.complete(null);
                 });
 
+        assertNull(future.get());
+    }
+
+    @Test
+    void testAggTradesChecksum() throws InterruptedException, ExecutionException {
+        CompletableFuture<Void> future = new CompletableFuture<>();
+        client.getAggTradesChecksum(symbol, year, month, day).getChecksum(cb -> {
+            assertNotNull(cb.getChecksum());
+            assertNotNull(cb.getFileName());
+            future.complete(null);
+        });
         assertNull(future.get());
     }
 

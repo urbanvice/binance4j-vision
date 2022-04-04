@@ -1,13 +1,12 @@
 package com.binance4j.vision.spot;
 
-import com.binance4j.vision.content.CandlestickRequestExecutor;
-import com.binance4j.vision.content.VisionRequestExecutor;
+import com.binance4j.vision.executor.CandlestickRequestExecutor;
+import com.binance4j.vision.executor.VisionRequestExecutor;
 
 import retrofit2.Retrofit;
 
 /**
  * The client for retrieving the SPOT public data (trades, aggTrades and klines)
- * TODO make async calls
  */
 public class SpotClient {
         private final SpotMapping service;

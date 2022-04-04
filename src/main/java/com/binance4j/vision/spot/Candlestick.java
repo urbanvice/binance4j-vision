@@ -14,62 +14,62 @@ public class Candlestick {
      * @return The candlestick open timestamp
      * @param OpenTime The new value
      */
-    Long openTime;
+    private Long openTime;
     /**
      * @return The candlestick close timestamp
      * @param CloseTime The new value
      */
-    Long closeTime;
+    private Long closeTime;
     /**
      * @return The number of trades in this interval
      * @param NumberOfTrades The new value
      */
-    Long numberOfTrades;
+    private Long numberOfTrades;
     /**
      * @return The Open value
      * @param Open The new value
      */
-    BigDecimal open;
+    private BigDecimal open;
     /**
      * @return The High value
      * @param High The new value
      */
-    BigDecimal high;
+    private BigDecimal high;
     /**
      * @return The Low value
      * @param Low The new value
      */
-    BigDecimal low;
+    private BigDecimal low;
     /**
      * @return The Close value
      * @param Close The new value
      */
-    BigDecimal close;
+    private BigDecimal close;
     /**
      * @return The traded volume in the interval
      * @param Volume The new value
      */
-    BigDecimal volume;
+    private BigDecimal volume;
     /**
      * @return The quote asset traded volume in the interval
      * @param QuoteAssetVolume The new value
      */
-    BigDecimal quoteAssetVolume;
+    private BigDecimal quoteAssetVolume;
     /**
      * @return The taker buy volume
      * @param TakerBuyBaseAssetVolume The new value
      */
-    BigDecimal takerBuyBaseAssetVolume;
+    private BigDecimal takerBuyBaseAssetVolume;
     /**
      * @return The taker buy quote asset volume
      * @param TakerBuyQuoteAssetVolume The new value
      */
-    BigDecimal takerBuyQuoteAssetVolume;
+    private BigDecimal takerBuyQuoteAssetVolume;
     /**
      * @return ???
      * @param Ignore The new value
      */
-    BigDecimal ignore;
+    private BigDecimal ignore;
 
     public Candlestick(List<String> input) {
         setOpenTime(Long.parseLong(input.get(0)));

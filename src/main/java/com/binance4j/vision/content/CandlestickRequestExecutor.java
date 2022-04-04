@@ -9,16 +9,18 @@ import com.binance4j.vision.spot.Candlestick;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 
-public class CandlestickRequestExecutor extends BaseDataRequestExecutor<Candlestick> {
+/**
+ * The candlestick request executor
+ */
+public class CandlestickRequestExecutor extends BaseVisionRequestExecutor<Candlestick> {
 
     public CandlestickRequestExecutor(Call<ResponseBody> call) {
         super(call);
     }
 
     /**
-     * Calls {@link BaseDataRequestExecutor#getZip()} and extracts the CSV into a
-     * list
-     * of arrays
+     * Calls {@link BaseVisionRequestExecutor#getZip()} and extracts the CSV into a
+     * list of arrays
      * 
      * @return
      * @throws IOException

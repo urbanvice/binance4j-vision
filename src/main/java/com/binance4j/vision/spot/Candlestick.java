@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/** The representation of a candlestick */
 @Data
 @NoArgsConstructor
 public class Candlestick {

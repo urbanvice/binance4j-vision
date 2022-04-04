@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.zip.ZipInputStream;
 
-public interface DataRequestExecutor<T> {
+/**
+ * Request executor for the public data endpoint
+ */
+public interface VisionRequestExecutor<T> {
 
     /**
      * Downloads the zip file
@@ -14,8 +17,8 @@ public interface DataRequestExecutor<T> {
     public ZipInputStream getZip();
 
     /**
-     * Downloads the zip file and deserializes the data in the compressed .csv file
-     * into a list of string arrays
+     * Downloads the zip file and returns the data in the csv as a list of string
+     * arrays
      * 
      * @return The deserialized data
      * @throws IOException
@@ -23,8 +26,7 @@ public interface DataRequestExecutor<T> {
     public List<String[]> getCSV() throws IOException;
 
     /**
-     * Downloads the zip file and deserializes the data in the compressed .csv file
-     * into a list of objects
+     * Downloads the zip file and returns the data in the csv as a list of objects
      * 
      * @return The deserialized data
      * @throws IOException

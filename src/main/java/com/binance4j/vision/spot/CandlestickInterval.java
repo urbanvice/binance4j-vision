@@ -3,6 +3,7 @@ package com.binance4j.vision.spot;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/** The interval between two candles */
 @AllArgsConstructor
 public enum CandlestickInterval {
   /** 1 minute interval */

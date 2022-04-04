@@ -10,6 +10,9 @@ public interface SpotMapping {
         public static final String MONTHLY_KLINES_URL = "spot/monthly/klines/{symbol}/{candlestick_interval}/{symbol}-{candlestick_interval}-{year}-{month}.zip";
         public static final String DAILY_KLINES_URL = "spot/daily/klines/{symbol}/{candlestick_interval}/{symbol}-{candlestick_interval}-{year}-{month}-{day}.zip";
 
+        public static final String MONTHLY_TRADES_URL = "spot/monthly/trades/{symbol}/{symbol}-trades-{year}-{month}.zip";
+        public static final String DAILY_TRADES_URL = "spot/daily/trades/{symbol}/{symbol}-trades-{year}-{month}-{day}.zip";
+
         /**
          * Mapping of the monthly candlestick data call
          * 
@@ -74,6 +77,68 @@ public interface SpotMapping {
         Call<ResponseBody> getDailyKlinesChecksum(
                         @Path("symbol") String symbol,
                         @Path("candlestick_interval") String candlestickInterval,
+                        @Path("year") String year,
+                        @Path("month") String month,
+                        @Path("day") String day);
+
+        // Trades
+
+        /**
+         * Mapping of the monthly trades call
+         * 
+         * @param symbol The trading pair
+         * @param year   The year
+         * @param month  The month
+         * @return The retrofit call
+         */
+        @GET(MONTHLY_TRADES_URL)
+        Call<ResponseBody> getMonthlyTrades(
+                        @Path("symbol") String symbol,
+                        @Path("year") String year,
+                        @Path("month") String month);
+
+        /**
+         * Mapping of the monthly trades cheksum call
+         * 
+         * @param symbol The trading pair
+         * @param year   The year
+         * @param month  The month
+         * @return The retrofit call
+         */
+        @GET(MONTHLY_TRADES_URL + ".CHECKSUM")
+        Call<ResponseBody> getMonthlyTradesChecksum(
+                        @Path("symbol") String symbol,
+                        @Path("year") String year,
+                        @Path("month") String month);
+
+        /**
+         * Mapping of the daily trades call
+         * 
+         * @param symbol The trading pair
+         * @param year   The year
+         * @param month  The month
+         * @param day    The day
+         * @return The retrofit call
+         */
+        @GET(DAILY_TRADES_URL)
+        Call<ResponseBody> getDailyTrades(
+                        @Path("symbol") String symbol,
+                        @Path("year") String year,
+                        @Path("month") String month,
+                        @Path("day") String day);
+
+        /**
+         * Mapping of the daily trades checksum call
+         * 
+         * @param symbol The trading pair
+         * @param year   The year
+         * @param month  The month
+         * @param day    The day
+         * @return The retrofit call
+         */
+        @GET(DAILY_TRADES_URL + ".CHECKSUM")
+        Call<ResponseBody> getDailyTradesChecksum(
+                        @Path("symbol") String symbol,
                         @Path("year") String year,
                         @Path("month") String month,
                         @Path("day") String day);

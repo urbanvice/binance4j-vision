@@ -65,4 +65,27 @@ public class SpotClientTest {
         assertNull(future.get());
     }
 
+    @Test
+    void getAggTrades() throws IOException, InterruptedException, ExecutionException {
+        CompletableFuture<Void> future = new CompletableFuture<>();
+        client.getAggTrades("SHIBEUR", "2022", "01", "01")
+                .getData(cb -> {
+                    System.out.println(cb);
+                    assertTrue(cb.size() > 0);
+                    cb.forEach(c -> {
+                        assertNotNull(c.getIsBestMatch());
+                        assertNotNull(c.getIsBuyerMaker());
+                        assertNotNull(c.getPrice());
+                        assertNotNull(c.getQuantity());
+                        assertNotNull(c.getTime());
+                        assertNotNull(c.getTradeId());
+                        assertNotNull(c.getFirstTradeId());
+                        assertNotNull(c.getLastTradeId());
+                    });
+                    future.complete(null);
+                });
+
+        assertNull(future.get());
+    }
+
 }

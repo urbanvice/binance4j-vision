@@ -9,12 +9,22 @@ import lombok.NoArgsConstructor;
 /** The representation of a trade */
 @Data
 @NoArgsConstructor
-public class Trade {
+public class AggTrade {
     /**
      * @return The trade id
      * @param tradeId The new value
      */
     private Long tradeId;
+    /**
+     * @return The first trade id
+     * @param firstTradeId The new value
+     */
+    private Long firstTradeId;
+    /**
+     * @return The last trade id
+     * @param lastTradeId The new value
+     */
+    private Long lastTradeId;
     /**
      * @return The timestamp
      * @param time The new value
@@ -30,11 +40,7 @@ public class Trade {
      * @param quantity The new value
      */
     private BigDecimal quantity;
-    /**
-     * @return The quote asset quantity
-     * @param quoteQuantity The new value
-     */
-    private BigDecimal quoteQuantity;
+
     /**
      * @return Was it a buyer maker
      * @param isBuyerMaker The new value
@@ -46,13 +52,14 @@ public class Trade {
      */
     private Boolean isBestMatch;
 
-    public Trade(List<String> input) {
+    public AggTrade(List<String> input) {
         setTradeId(Long.parseLong(input.get(0)));
         setPrice(new BigDecimal(input.get(1)));
         setQuantity(new BigDecimal(input.get(2)));
-        setQuoteQuantity(new BigDecimal(input.get(3)));
-        setTime(Long.parseLong(input.get(4)));
-        setIsBuyerMaker(Boolean.parseBoolean(input.get(5)));
-        setIsBestMatch(Boolean.parseBoolean(input.get(6)));
+        setFirstTradeId(Long.parseLong(input.get(3)));
+        setLastTradeId(Long.parseLong(input.get(4)));
+        setTime(Long.parseLong(input.get(5)));
+        setIsBuyerMaker(Boolean.parseBoolean(input.get(6)));
+        setIsBestMatch(Boolean.parseBoolean(input.get(7)));
     }
 }

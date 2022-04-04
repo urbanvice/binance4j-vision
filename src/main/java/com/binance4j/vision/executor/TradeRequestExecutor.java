@@ -8,7 +8,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 
 /**
- * The candlestick request executor
+ * The trade request executor
  */
 public class TradeRequestExecutor extends VisionRequestExecutor<Trade> {
 

@@ -1,5 +1,6 @@
 package com.binance4j.vision.spot;
 
+import com.binance4j.vision.executor.AggTradeRequestExecutor;
 import com.binance4j.vision.executor.CandlestickRequestExecutor;
 import com.binance4j.vision.executor.TradeRequestExecutor;
 import com.binance4j.vision.executor.VisionRequestExecutor;
@@ -149,5 +150,69 @@ public class SpotClient {
                         String day) {
                 return new TradeRequestExecutor(
                                 service.getDailyTradesChecksum(symbol.toUpperCase(), year, month, day));
+        }
+
+        // AggTrades
+
+        /**
+         * Get the compressed csv containing the aggTrades data for a
+         * symbol (monthly)
+         * 
+         * @param dataInterval The data interval
+         * @param symbol       The trading pair
+         * @param year         The year
+         * @param month        The month
+         * @return The zip file containing the data
+         */
+        public VisionRequestExecutor<AggTrade> getAggTrades(String symbol, String year, String month) {
+                return new AggTradeRequestExecutor(
+                                service.getMonthlyAggTrades(symbol.toUpperCase(), year, month));
+        }
+
+        /**
+         * Get the checksum of the zip archive (monthly)
+         * 
+         * @param dataInterval The data interval
+         * @param symbol       The trading pair
+         * @param year         The year
+         * @param month        The month
+         * @return The zip file containing the data
+         */
+        public VisionRequestExecutor<AggTrade> getAggTradesChecksum(String symbol, String year, String month) {
+                return new AggTradeRequestExecutor(
+                                service.getMonthlyAggTradesChecksum(symbol.toUpperCase(), year, month));
+        }
+
+        /**
+         * Get the compressed csv containing the aggTrades data for a
+         * symbol (daily)
+         * 
+         * @param dataInterval        The data interval
+         * @param symbol              The trading pair
+         * @param candlestickInterval The interval
+         * @param year                The year
+         * @param month               The month
+         * @param day                 The day
+         * @return The zip file containing the data
+         */
+        public VisionRequestExecutor<AggTrade> getAggTrades(String symbol, String year, String month, String day) {
+                return new AggTradeRequestExecutor(
+                                service.getDailyAggTrades(symbol.toUpperCase(), year, month, day));
+        }
+
+        /**
+         * Get the checksum of the zip archive (daily)
+         * 
+         * @param dataInterval The data interval
+         * @param symbol       The trading pair
+         * @param year         The year
+         * @param month        The month
+         * @param day          The day
+         * @return The zip file containing the data
+         */
+        public VisionRequestExecutor<AggTrade> getAggTradesChecksum(String symbol, String year, String month,
+                        String day) {
+                return new AggTradeRequestExecutor(
+                                service.getDailyAggTradesChecksum(symbol.toUpperCase(), year, month, day));
         }
 }

@@ -44,6 +44,17 @@ public class SpotClientTest {
     }
 
     @Test
+    void testKlinesChecksum() throws InterruptedException, ExecutionException {
+        CompletableFuture<Void> future = new CompletableFuture<>();
+        client.getKlinesChecksum("SHIBEUR", CandlestickInterval.ONE_MINUTE, "2022", "01", "01").getChecksum(cb -> {
+            assertNotNull(cb.getChecksum());
+            assertNotNull(cb.getFileName());
+            future.complete(null);
+        });
+        assertNull(future.get());
+    }
+
+    @Test
     void getTrades() throws IOException, InterruptedException, ExecutionException {
         CompletableFuture<Void> future = new CompletableFuture<>();
         client.getTrades("SHIBEUR", "2022", "01", "01")

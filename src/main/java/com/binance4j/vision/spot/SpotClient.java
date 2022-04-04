@@ -2,6 +2,7 @@ package com.binance4j.vision.spot;
 
 import com.binance4j.vision.executor.AggTradeRequestExecutor;
 import com.binance4j.vision.executor.CandlestickRequestExecutor;
+import com.binance4j.vision.executor.ChecksumRequestExecutor;
 import com.binance4j.vision.executor.TradeRequestExecutor;
 import com.binance4j.vision.executor.VisionRequestExecutor;
 
@@ -45,9 +46,9 @@ public class SpotClient {
          * @param month               The month
          * @return The zip file containing the data
          */
-        public VisionRequestExecutor<Candlestick> getKlinesChecksum(String symbol,
+        public ChecksumRequestExecutor getKlinesChecksum(String symbol,
                         CandlestickInterval candlestickInterval, String year, String month) {
-                return new CandlestickRequestExecutor(
+                return new ChecksumRequestExecutor(
                                 service.getMonthlyKlinesChecksum(symbol.toUpperCase(), candlestickInterval.getValue(),
                                                 year, month));
         }
@@ -80,9 +81,9 @@ public class SpotClient {
          * @param day                 The day
          * @return The zip file containing the data
          */
-        public VisionRequestExecutor<Candlestick> getKlinesChecksum(String symbol,
+        public ChecksumRequestExecutor getKlinesChecksum(String symbol,
                         CandlestickInterval candlestickInterval, String year, String month, String day) {
-                return new CandlestickRequestExecutor(
+                return new ChecksumRequestExecutor(
                                 service.getDailyKlinesChecksum(symbol.toUpperCase(), candlestickInterval.getValue(),
                                                 year,
                                                 month, day));
@@ -114,8 +115,8 @@ public class SpotClient {
          * @param month        The month
          * @return The zip file containing the data
          */
-        public VisionRequestExecutor<Trade> getTradesChecksum(String symbol, String year, String month) {
-                return new TradeRequestExecutor(
+        public ChecksumRequestExecutor getTradesChecksum(String symbol, String year, String month) {
+                return new ChecksumRequestExecutor(
                                 service.getMonthlyTradesChecksum(symbol.toUpperCase(), year, month));
         }
 
@@ -146,9 +147,9 @@ public class SpotClient {
          * @param day          The day
          * @return The zip file containing the data
          */
-        public VisionRequestExecutor<Trade> getTradesChecksum(String symbol, String year, String month,
+        public ChecksumRequestExecutor getTradesChecksum(String symbol, String year, String month,
                         String day) {
-                return new TradeRequestExecutor(
+                return new ChecksumRequestExecutor(
                                 service.getDailyTradesChecksum(symbol.toUpperCase(), year, month, day));
         }
 
@@ -178,8 +179,8 @@ public class SpotClient {
          * @param month        The month
          * @return The zip file containing the data
          */
-        public VisionRequestExecutor<AggTrade> getAggTradesChecksum(String symbol, String year, String month) {
-                return new AggTradeRequestExecutor(
+        public ChecksumRequestExecutor getAggTradesChecksum(String symbol, String year, String month) {
+                return new ChecksumRequestExecutor(
                                 service.getMonthlyAggTradesChecksum(symbol.toUpperCase(), year, month));
         }
 
@@ -210,9 +211,9 @@ public class SpotClient {
          * @param day          The day
          * @return The zip file containing the data
          */
-        public VisionRequestExecutor<AggTrade> getAggTradesChecksum(String symbol, String year, String month,
+        public ChecksumRequestExecutor getAggTradesChecksum(String symbol, String year, String month,
                         String day) {
-                return new AggTradeRequestExecutor(
+                return new ChecksumRequestExecutor(
                                 service.getDailyAggTradesChecksum(symbol.toUpperCase(), year, month, day));
         }
 }

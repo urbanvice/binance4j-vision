@@ -148,7 +148,9 @@ public abstract class VisionRequestExecutor<T> extends RequestExecutor<ResponseB
      * @return The deserialized data
      * @throws IOException
      */
-    public abstract List<T> getData() throws IOException;
+    public List<T> getData() throws IOException {
+        return csvToObject(getCSV());
+    }
 
     /**
      * Downloads the zip file asynchronously and returns the data in the csv as a
@@ -157,7 +159,44 @@ public abstract class VisionRequestExecutor<T> extends RequestExecutor<ResponseB
      * @param callback The callback handling the deserialized data and
      *                 the API response error
      */
-    public abstract void getData(ApiCallback<List<T>> callback);
+    public void getData(ApiCallback<List<T>> callback) {
+        then(new ApiCallback<ResponseBody>() {
+
+            @Override
+            public void onResponse(ResponseBody res) {
+                try {
+                    callback.onResponse(csvToObject(extractCSV(responseToZip(res))));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            @Override
+            public void onFailure(ApiException exception) {
+                callback.onFailure(exception);
+            }
+
+            @Override
+            public void onInternalError() {
+                callback.onInternalError();
+            }
+
+            @Override
+            public void onRateLimitBan() {
+                callback.onRateLimitBan();
+            }
+
+            @Override
+            public void onRateLimitBreak() {
+                callback.onRateLimitBreak();
+            }
+
+            @Override
+            public void onWAFLimit() {
+                callback.onWAFLimit();
+            }
+        });
+    }
 
     /**
      * Converts the responseBody into a zip stream

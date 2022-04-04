@@ -1,7 +1,6 @@
 package com.binance4j.vision.executor;
 
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
 
 import com.binance4j.core.callback.ApiCallback;
@@ -14,20 +13,10 @@ import retrofit2.Call;
 /**
  * The candlestick request executor
  */
-public class CandlestickRequestExecutor extends BaseVisionRequestExecutor<Candlestick> {
+public class CandlestickRequestExecutor extends VisionRequestExecutor<Candlestick> {
 
     public CandlestickRequestExecutor(Call<ResponseBody> call) {
         super(call);
-    }
-
-    public List<Candlestick> csvToObject(List<String[]> input) {
-        List<Candlestick> candlesticks = new LinkedList<>();
-
-        for (String[] csv : input) {
-            Candlestick candlestick = new Candlestick(csv);
-            candlesticks.add(candlestick);
-        }
-        return candlesticks;
     }
 
     public List<Candlestick> getData() throws IOException {
@@ -40,7 +29,7 @@ public class CandlestickRequestExecutor extends BaseVisionRequestExecutor<Candle
             @Override
             public void onResponse(ResponseBody res) {
                 try {
-                    callback.onResponse(csvToObject(zipToCSV(responseToZip(res))));
+                    callback.onResponse(csvToObject(extractCSV(responseToZip(res))));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -71,5 +60,9 @@ public class CandlestickRequestExecutor extends BaseVisionRequestExecutor<Candle
                 callback.onWAFLimit();
             }
         });
+    }
+
+    protected List<Candlestick> csvToObject(List<List<String>> input) {
+        return csvToObject(Candlestick.class, input);
     }
 }

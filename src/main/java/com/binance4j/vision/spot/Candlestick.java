@@ -1,6 +1,7 @@
 package com.binance4j.vision.spot;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -70,18 +71,18 @@ public class Candlestick {
      */
     BigDecimal ignore;
 
-    public Candlestick(String[] data) {
-        setOpenTime(Long.parseLong(data[0]));
-        setOpen(new BigDecimal(data[1]));
-        setHigh(new BigDecimal(data[2]));
-        setLow(new BigDecimal(data[3]));
-        setClose(new BigDecimal(data[4]));
-        setVolume(new BigDecimal(data[5]));
-        setCloseTime(Long.parseLong(data[6]));
-        setQuoteAssetVolume(new BigDecimal(data[7]));
-        setNumberOfTrades(Long.parseLong(data[8]));
-        setTakerBuyBaseAssetVolume(new BigDecimal(data[9]));
-        setTakerBuyQuoteAssetVolume(new BigDecimal(data[10]));
-        setIgnore(new BigDecimal(data[11]));
+    public Candlestick(List<String> input) {
+        setOpenTime(Long.parseLong(input.get(0)));
+        setOpen(new BigDecimal(input.get(1)));
+        setHigh(new BigDecimal(input.get(2)));
+        setLow(new BigDecimal(input.get(3)));
+        setClose(new BigDecimal(input.get(4)));
+        setVolume(new BigDecimal(input.get(5)));
+        setCloseTime(Long.parseLong(input.get(6)));
+        setQuoteAssetVolume(new BigDecimal(input.get(7)));
+        setNumberOfTrades(Long.parseLong(input.get(8)));
+        setTakerBuyBaseAssetVolume(new BigDecimal(input.get(9)));
+        setTakerBuyQuoteAssetVolume(new BigDecimal(input.get(10)));
+        setIgnore(new BigDecimal(input.get(11)));
     }
 }

@@ -18,7 +18,7 @@ public class SpotClient {
         }
 
         /**
-         * Gets the zip archive containing the csv containing the candlestick data for a
+         * Get the compressed csv containing the candlestick data for a
          * symbol (monthly)
          * 
          * @param dataInterval        The data interval
@@ -40,7 +40,7 @@ public class SpotClient {
         }
 
         /**
-         * Gets the checksum of the zip archive (monthly)
+         * Get the checksum of the zip archive (monthly)
          * 
          * @param dataInterval        The data interval
          * @param symbol              The trading pair
@@ -61,7 +61,7 @@ public class SpotClient {
         }
 
         /**
-         * Gets the zip archive containing the csv containing the candlestick data for a
+         * Get the compressed csv containing the candlestick data for a
          * symbol (daily)
          * 
          * @param dataInterval        The data interval
@@ -85,7 +85,7 @@ public class SpotClient {
         }
 
         /**
-         * Gets the checksum of the zip archive (daily)
+         * Get the checksum of the zip archive (daily)
          * 
          * @param dataInterval        The data interval
          * @param symbol              The trading pair

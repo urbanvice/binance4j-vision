@@ -11,13 +11,13 @@ public interface SpotMapping {
         public static final String DAILY_KLINES_URL = "spot/daily/klines/{symbol}/{candlestick_interval}/{symbol}-{candlestick_interval}-{year}-{month}-{day}.zip";
 
         /**
-         * The monthly candlestick data
+         * Mapping of the monthly candlestick data call
          * 
          * @param symbol              The trading pair
          * @param candlestickInterval The interval between two candles
-         * @param year
-         * @param month
-         * @return
+         * @param year                The year
+         * @param month               The month
+         * @return The retrofit call
          */
         @GET(MONTHLY_KLINES_URL)
         Call<ResponseBody> getMonthlyKlines(
@@ -27,13 +27,13 @@ public interface SpotMapping {
                         @Path("month") String month);
 
         /**
-         * The monthly candlestick data cheksum
+         * Mapping of the monthly candlestick data cheksum call
          * 
          * @param symbol              The trading pair
          * @param candlestickInterval The interval between two candles
-         * @param year
-         * @param month
-         * @return
+         * @param year                The year
+         * @param month               The month
+         * @return The retrofit call
          */
         @GET(MONTHLY_KLINES_URL + ".CHECKSUM")
         Call<ResponseBody> getMonthlyKlinesChecksum(
@@ -42,6 +42,16 @@ public interface SpotMapping {
                         @Path("year") String year,
                         @Path("month") String month);
 
+        /**
+         * Mapping of the daily candlestick data call
+         * 
+         * @param symbol              The trading pair
+         * @param candlestickInterval The interval between two candles
+         * @param year                The year
+         * @param month               The month
+         * @param day                 The day
+         * @return The retrofit call
+         */
         @GET(DAILY_KLINES_URL)
         Call<ResponseBody> getDailyKlines(
                         @Path("symbol") String symbol,
@@ -50,6 +60,16 @@ public interface SpotMapping {
                         @Path("month") String month,
                         @Path("day") String day);
 
+        /**
+         * Mapping of the daily candlestick data checksum call
+         * 
+         * @param symbol              The trading pair
+         * @param candlestickInterval The interval between two candles
+         * @param year                The year
+         * @param month               The month
+         * @param day                 The day
+         * @return The retrofit call
+         */
         @GET(DAILY_KLINES_URL + ".CHECKSUM")
         Call<ResponseBody> getDailyKlinesChecksum(
                         @Path("symbol") String symbol,

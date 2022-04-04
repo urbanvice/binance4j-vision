@@ -6,7 +6,7 @@ import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/** The representation of a trade */
+/** The representation of an aggregated trade */
 @Data
 @NoArgsConstructor
 public class AggTrade {

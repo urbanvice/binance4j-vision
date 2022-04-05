@@ -95,10 +95,9 @@ public class SpotClient {
          * Get the compressed csv containing the trades data for a
          * symbol (monthly)
          * 
-         * @param dataInterval The data interval
-         * @param symbol       The trading pair
-         * @param year         The year
-         * @param month        The month
+         * @param symbol The trading pair
+         * @param year   The year
+         * @param month  The month
          * @return The zip file containing the data
          */
         public VisionRequestExecutor<Trade> getTrades(String symbol, String year, String month) {
@@ -109,10 +108,9 @@ public class SpotClient {
         /**
          * Get the checksum of the zip archive (monthly)
          * 
-         * @param dataInterval The data interval
-         * @param symbol       The trading pair
-         * @param year         The year
-         * @param month        The month
+         * @param symbol The trading pair
+         * @param year   The year
+         * @param month  The month
          * @return The zip file containing the data
          */
         public ChecksumRequestExecutor getTradesChecksum(String symbol, String year, String month) {
@@ -124,12 +122,10 @@ public class SpotClient {
          * Get the compressed csv containing the trades data for a
          * symbol (daily)
          * 
-         * @param dataInterval        The data interval
-         * @param symbol              The trading pair
-         * @param candlestickInterval The interval
-         * @param year                The year
-         * @param month               The month
-         * @param day                 The day
+         * @param symbol The trading pair
+         * @param year   The year
+         * @param month  The month
+         * @param day    The day
          * @return The zip file containing the data
          */
         public VisionRequestExecutor<Trade> getTrades(String symbol, String year, String month, String day) {
@@ -140,11 +136,10 @@ public class SpotClient {
         /**
          * Get the checksum of the zip archive (daily)
          * 
-         * @param dataInterval The data interval
-         * @param symbol       The trading pair
-         * @param year         The year
-         * @param month        The month
-         * @param day          The day
+         * @param symbol The trading pair
+         * @param year   The year
+         * @param month  The month
+         * @param day    The day
          * @return The zip file containing the data
          */
         public ChecksumRequestExecutor getTradesChecksum(String symbol, String year, String month,
@@ -159,10 +154,9 @@ public class SpotClient {
          * Get the compressed csv containing the aggTrades data for a
          * symbol (monthly)
          * 
-         * @param dataInterval The data interval
-         * @param symbol       The trading pair
-         * @param year         The year
-         * @param month        The month
+         * @param symbol The trading pair
+         * @param year   The year
+         * @param month  The month
          * @return The zip file containing the data
          */
         public VisionRequestExecutor<AggTrade> getAggTrades(String symbol, String year, String month) {
@@ -173,10 +167,9 @@ public class SpotClient {
         /**
          * Get the checksum of the zip archive (monthly)
          * 
-         * @param dataInterval The data interval
-         * @param symbol       The trading pair
-         * @param year         The year
-         * @param month        The month
+         * @param symbol The trading pair
+         * @param year   The year
+         * @param month  The month
          * @return The zip file containing the data
          */
         public ChecksumRequestExecutor getAggTradesChecksum(String symbol, String year, String month) {
@@ -188,12 +181,10 @@ public class SpotClient {
          * Get the compressed csv containing the aggTrades data for a
          * symbol (daily)
          * 
-         * @param dataInterval        The data interval
-         * @param symbol              The trading pair
-         * @param candlestickInterval The interval
-         * @param year                The year
-         * @param month               The month
-         * @param day                 The day
+         * @param symbol The trading pair
+         * @param year   The year
+         * @param month  The month
+         * @param day    The day
          * @return The zip file containing the data
          */
         public VisionRequestExecutor<AggTrade> getAggTrades(String symbol, String year, String month, String day) {
@@ -204,11 +195,10 @@ public class SpotClient {
         /**
          * Get the checksum of the zip archive (daily)
          * 
-         * @param dataInterval The data interval
-         * @param symbol       The trading pair
-         * @param year         The year
-         * @param month        The month
-         * @param day          The day
+         * @param symbol The trading pair
+         * @param year   The year
+         * @param month  The month
+         * @param day    The day
          * @return The zip file containing the data
          */
         public ChecksumRequestExecutor getAggTradesChecksum(String symbol, String year, String month,

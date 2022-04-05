@@ -12,62 +12,62 @@ import lombok.NoArgsConstructor;
 public class Candlestick {
     /**
      * @return The candlestick open timestamp
-     * @param OpenTime The new value
+     * @param openTime The new value
      */
     private Long openTime;
     /**
      * @return The candlestick close timestamp
-     * @param CloseTime The new value
+     * @param closeTime The new value
      */
     private Long closeTime;
     /**
      * @return The number of trades in this interval
-     * @param NumberOfTrades The new value
+     * @param numberOfTrades The new value
      */
     private Long numberOfTrades;
     /**
      * @return The Open value
-     * @param Open The new value
+     * @param open The new value
      */
     private BigDecimal open;
     /**
      * @return The High value
-     * @param High The new value
+     * @param high The new value
      */
     private BigDecimal high;
     /**
      * @return The Low value
-     * @param Low The new value
+     * @param low The new value
      */
     private BigDecimal low;
     /**
      * @return The Close value
-     * @param Close The new value
+     * @param close The new value
      */
     private BigDecimal close;
     /**
      * @return The traded volume in the interval
-     * @param Volume The new value
+     * @param volume The new value
      */
     private BigDecimal volume;
     /**
      * @return The quote asset traded volume in the interval
-     * @param QuoteAssetVolume The new value
+     * @param quoteAssetVolume The new value
      */
     private BigDecimal quoteAssetVolume;
     /**
      * @return The taker buy volume
-     * @param TakerBuyBaseAssetVolume The new value
+     * @param takerBuyBaseAssetVolume The new value
      */
     private BigDecimal takerBuyBaseAssetVolume;
     /**
      * @return The taker buy quote asset volume
-     * @param TakerBuyQuoteAssetVolume The new value
+     * @param takerBuyQuoteAssetVolume The new value
      */
     private BigDecimal takerBuyQuoteAssetVolume;
     /**
      * @return ???
-     * @param Ignore The new value
+     * @param ignore The new value
      */
     private BigDecimal ignore;
 

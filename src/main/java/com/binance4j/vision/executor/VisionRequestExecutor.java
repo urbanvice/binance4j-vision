@@ -211,7 +211,7 @@ public abstract class VisionRequestExecutor<T> extends RequestExecutor<ResponseB
     /**
      * Extracts the csv from the zip
      * 
-     * @param zip the zip stream
+     * @param zis the zip stream
      * @return The data as a list of string arrays
      */
     protected List<List<String>> extractCSV(ZipInputStream zis) throws IOException {

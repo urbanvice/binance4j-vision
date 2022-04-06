@@ -10,7 +10,7 @@
 <dependency>
   <groupId>com.binance4j</groupId>
   <artifactId>binance4j-vision</artifactId>
-  <version>${BINANCE4J_VERSION}</version>
+  <version>1.0.3</version>
 </dependency>
 ```
 

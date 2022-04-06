@@ -1,5 +1,6 @@
 package com.binance4j.vision.executor;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.binance4j.core.callback.ApiCallback;
@@ -16,6 +17,10 @@ public class ChecksumRequestExecutor extends RequestExecutor<ResponseBody> {
      * 
      * @param call The retrofit call
      */
+    public ChecksumRequestExecutor(List<Call<ResponseBody>> call) {
+        super(call);
+    }
+
     public ChecksumRequestExecutor(Call<ResponseBody> call) {
         super(call);
     }

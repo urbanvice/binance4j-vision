@@ -12,6 +12,10 @@ import retrofit2.Call;
  */
 public class CandlestickRequestExecutor extends VisionRequestExecutor<Candlestick> {
 
+    public CandlestickRequestExecutor(List<Call<ResponseBody>> call) {
+        super(call);
+    }
+
     public CandlestickRequestExecutor(Call<ResponseBody> call) {
         super(call);
     }

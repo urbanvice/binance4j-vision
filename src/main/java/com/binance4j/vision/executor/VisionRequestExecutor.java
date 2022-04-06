@@ -25,6 +25,10 @@ public abstract class VisionRequestExecutor<T> extends RequestExecutor<ResponseB
      * 
      * @param call The retrofit call
      */
+    protected VisionRequestExecutor(List<Call<ResponseBody>> call) {
+        super(call);
+    }
+
     protected VisionRequestExecutor(Call<ResponseBody> call) {
         super(call);
     }

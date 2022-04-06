@@ -12,6 +12,10 @@ import retrofit2.Call;
  */
 public class TradeRequestExecutor extends VisionRequestExecutor<Trade> {
 
+    public TradeRequestExecutor(List<Call<ResponseBody>> call) {
+        super(call);
+    }
+
     public TradeRequestExecutor(Call<ResponseBody> call) {
         super(call);
     }

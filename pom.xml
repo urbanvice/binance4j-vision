@@ -4,12 +4,20 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.binance4j</groupId>
   <artifactId>binance4j-vision</artifactId>
-  <version>1.0.1</version>
+  <version>${binance4j.version}</version>
   <packaging>jar</packaging>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <binance4j.version>1.0.3</binance4j.version>
+    <repository.url>https://github.com/binance4j/binance4j-vision</repository.url>
+  </properties>
 
   <name>binance4j-vision</name>
   <description>A client to retrieve public data from the Binance exchange</description>
-  <url>https://github.com/binance4j/binance4j-vision</url>
+  <url>${repository.url}</url>
 
   <licenses>
     <license>
@@ -41,17 +49,12 @@
   <scm>
     <url>https://github.com/binance4j/binance4j-vision.git</url>
   </scm>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-  </properties>
 
   <dependencies>
     <dependency>
       <groupId>com.binance4j</groupId>
       <artifactId>binance4j-core</artifactId>
-      <version>1.0.1</version>
+      <version>${binance4j.version}</version>
     </dependency>
   </dependencies>
 

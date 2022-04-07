@@ -1,5 +1,7 @@
 # binance4j-vision
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.binance4j/binance4j-vision/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.binance4j/binance4j-vision/badge.svg)
+
 [See binance documentation here](https://github.com/binance/binance-public-data)
 
 ## Installation

@@ -23,7 +23,7 @@ Binance4j-vision helps download Binance public data easily. Only SPOT data is av
 ### Instantiate the Spot client
 
 ```java
-SpotClient client = client = new SpotClient();
+SpotClient client = new SpotClient();
 ```
 
 ### Get candlestick data
@@ -96,12 +96,12 @@ In a deserialized format
 
 ```java
 //daily
-lient.getKlines(symbol, interval, year, month, day).getData(res->{});
+client.getKlines(symbol, interval, year, month, day).getData(res->{});
 ```
 
 ```java
 //monthly
-lient.getKlines(symbol, interval, year, month).getData(res->{});
+client.getKlines(symbol, interval, year, month).getData(res->{});
 ```
 
 ### Get candlestick data Checksum
@@ -193,12 +193,12 @@ In a deserialized format
 
 ```java
 //daily
-lient.getTrades(symbol, year, month, day).getData(res->{});
+client.getTrades(symbol, year, month, day).getData(res->{});
 ```
 
 ```java
 //monthly
-lient.getTrades(symbol, year, month).getData(res->{});
+client.getTrades(symbol, year, month).getData(res->{});
 ```
 
 ### Get trades data Checksum
@@ -290,12 +290,12 @@ In a deserialized format
 
 ```java
 //daily
-lient.getAggTrades(symbol, year, month, day).getData(res->{});
+client.getAggTrades(symbol, year, month, day).getData(res->{});
 ```
 
 ```java
 //monthly
-lient.getAggTrades(symbol, year, month).getData(res->{});
+client.getAggTrades(symbol, year, month).getData(res->{});
 ```
 
 ### Get aggregated trades data Checksum

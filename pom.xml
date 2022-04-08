@@ -11,13 +11,12 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <binance4j.version>1.0.4</binance4j.version>
-    <repository.url>https://github.com/binance4j/binance4j-vision</repository.url>
+    <binance4j.version>1.0.5</binance4j.version>
   </properties>
 
   <name>binance4j-vision</name>
   <description>A client to retrieve public data from the Binance exchange</description>
-  <url>${repository.url}</url>
+  <url>https://github.com/binance4j/binance4j-vision</url>
 
   <licenses>
     <license>

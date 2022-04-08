@@ -317,6 +317,4 @@ Checksum checksum = client.getAggTradesChecksum(symbol, year, month).getChecksum
 client.getAggTradesChecksum(symbol, year, month).getChecksum(checksum->{});
 ```
 
-## Javadoc
-
-[Javadoc can be found here](https://binance4j.github.io/binance4j-vision/)
+[Javadoc](https://binance4j.github.io/binance4j-vision/)

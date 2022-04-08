@@ -14,7 +14,7 @@ public class SpotClientTest {
     SpotClient client;
 
     CandlestickInterval interval = CandlestickInterval.ONE_MINUTE;
-    String symbol = "SHIBEUR";
+    String symbol = "BTCBUSD";
     String year = "2022";
     String month = "01";
     String day = "01";

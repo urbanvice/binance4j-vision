@@ -2,8 +2,8 @@ package com.binance4j.vision.executor;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.zip.ZipInputStream;
@@ -219,7 +219,7 @@ public abstract class VisionRequestExecutor<T> extends RequestExecutor<ResponseB
      * @return The data as a list of string arrays
      */
     protected List<List<String>> extractCSV(ZipInputStream zis) throws IOException {
-        List<List<String>> data = new LinkedList<>();
+        List<List<String>> data = new ArrayList<>();
         Scanner sc = new Scanner(zis);
 
         zis.getNextEntry();

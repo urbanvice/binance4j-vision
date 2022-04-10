@@ -15,9 +15,8 @@ public class SpotClient {
         private final SpotMapping service;
 
         public SpotClient() {
-                service = new Retrofit.Builder()
-                                .baseUrl("https://data.binance.vision/data/")
-                                .build().create(SpotMapping.class);
+                service = new Retrofit.Builder().baseUrl("https://data.binance.vision/data/").build()
+                                .create(SpotMapping.class);
         }
 
         /**

@@ -6,8 +6,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![JDK](https://upload.wikimedia.org/wikipedia/commons/7/75/Blue_JDK_1.8%2B_Shield_Badge.svg)
 [![javadoc](https://img.shields.io/badge/javadoc-latest-informational)](https://binance4j.github.io/binance4j-vision)
+[![binance doc](https://img.shields.io/badge/binance%20doc-public%20data-gold)](https://github.com/binance/binance-public-data)
 
-[See binance documentation here](https://github.com/binance/binance-public-data)
 
 Binance4j-vision helps download Binance public data easily. Only SPOT data is available right now.
 

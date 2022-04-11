@@ -5,6 +5,7 @@
 ![Build Status develop](https://img.shields.io/github/workflow/status/binance4j/binance4j-vision/Deploy%20Artifact%20on%20Maven%20then%20merge%20on%20main/deploy?label=Test)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![JDK](https://upload.wikimedia.org/wikipedia/commons/7/75/Blue_JDK_1.8%2B_Shield_Badge.svg)
+[![javadoc](https://img.shields.io/badge/javadoc-latest-informational)](https://binance4j.github.io/binance4j-vision)
 
 [See binance documentation here](https://github.com/binance/binance-public-data)
 
@@ -320,5 +321,3 @@ Checksum checksum = client.getAggTradesChecksum(symbol, year, month).getChecksum
 //async
 client.getAggTradesChecksum(symbol, year, month).getChecksum(checksum->{});
 ```
-
-[Javadoc](https://binance4j.github.io/binance4j-vision/)

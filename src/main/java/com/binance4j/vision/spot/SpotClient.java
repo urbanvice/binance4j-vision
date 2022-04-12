@@ -1,5 +1,6 @@
 package com.binance4j.vision.spot;
 
+import com.binance4j.core.kline.CandlestickBar;
 import com.binance4j.vision.executor.AggTradeRequestExecutor;
 import com.binance4j.vision.executor.CandlestickRequestExecutor;
 import com.binance4j.vision.executor.ChecksumRequestExecutor;
@@ -29,7 +30,7 @@ public class SpotClient {
          * @param month               The month
          * @return The zip file containing the data
          */
-        public VisionRequestExecutor<Candlestick> getKlines(String symbol, CandlestickInterval candlestickInterval,
+        public VisionRequestExecutor<CandlestickBar> getKlines(String symbol, CandlestickInterval candlestickInterval,
                         String year, String month) {
                 return new CandlestickRequestExecutor(
                                 service.getMonthlyKlines(symbol.toUpperCase(), candlestickInterval.getValue(), year,
@@ -63,7 +64,7 @@ public class SpotClient {
          * @param day                 The day
          * @return The zip file containing the data
          */
-        public VisionRequestExecutor<Candlestick> getKlines(String symbol, CandlestickInterval candlestickInterval,
+        public VisionRequestExecutor<CandlestickBar> getKlines(String symbol, CandlestickInterval candlestickInterval,
                         String year, String month, String day) {
                 return new CandlestickRequestExecutor(
                                 service.getDailyKlines(symbol.toUpperCase(), candlestickInterval.getValue(), year,

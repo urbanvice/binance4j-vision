@@ -8,7 +8,6 @@
 [![javadoc](https://img.shields.io/badge/javadoc-latest-informational)](https://binance4j.github.io/binance4j-vision)
 [![binance doc](https://img.shields.io/badge/binance%20doc-public%20data-gold)](https://github.com/binance/binance-public-data)
 
-
 Binance4j-vision helps download Binance public data easily. Only SPOT data is available right now.
 
 ## Installation

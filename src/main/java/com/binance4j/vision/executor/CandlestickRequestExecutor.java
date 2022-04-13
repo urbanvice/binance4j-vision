@@ -2,7 +2,7 @@ package com.binance4j.vision.executor;
 
 import java.util.List;
 
-import com.binance4j.vision.spot.Candlestick;
+import com.binance4j.core.kline.CandlestickBar;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -10,7 +10,7 @@ import retrofit2.Call;
 /**
  * The candlestick request executor
  */
-public class CandlestickRequestExecutor extends VisionRequestExecutor<Candlestick> {
+public class CandlestickRequestExecutor extends VisionRequestExecutor<CandlestickBar> {
 
     public CandlestickRequestExecutor(List<Call<ResponseBody>> call) {
         super(call);
@@ -20,7 +20,7 @@ public class CandlestickRequestExecutor extends VisionRequestExecutor<Candlestic
         super(call);
     }
 
-    protected List<Candlestick> csvToObject(List<List<String>> input) {
-        return csvToObject(Candlestick.class, input);
+    protected List<CandlestickBar> csvToObject(List<List<String>> input) {
+        return csvToObject(CandlestickBar.class, input);
     }
 }

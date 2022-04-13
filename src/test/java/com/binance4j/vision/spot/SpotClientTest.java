@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+import com.binance4j.vision.enums.CandlestickInterval;
+
 import org.junit.jupiter.api.Test;
 
 public class SpotClientTest {

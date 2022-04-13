@@ -1,5 +1,7 @@
 package com.binance4j.vision.spot;
 
+import com.binance4j.core.kline.CandlestickBar;
+import com.binance4j.vision.enums.CandlestickInterval;
 import com.binance4j.vision.executor.AggTradeRequestExecutor;
 import com.binance4j.vision.executor.CandlestickRequestExecutor;
 import com.binance4j.vision.executor.ChecksumRequestExecutor;
@@ -12,197 +14,197 @@ import retrofit2.Retrofit;
  * The client for retrieving the SPOT public data (trades, aggTrades and klines)
  */
 public class SpotClient {
-        private final SpotMapping service;
+    private final SpotMapping service;
 
-        public SpotClient() {
-                service = new Retrofit.Builder().baseUrl("https://data.binance.vision/data/").build()
-                                .create(SpotMapping.class);
-        }
+    public SpotClient() {
+        service = new Retrofit.Builder().baseUrl("https://data.binance.vision/data/").build()
+                .create(SpotMapping.class);
+    }
 
-        /**
-         * Get the compressed csv containing the candlestick data for a
-         * symbol (monthly)
-         * 
-         * @param symbol              The trading pair
-         * @param candlestickInterval The interval
-         * @param year                The year
-         * @param month               The month
-         * @return The zip file containing the data
-         */
-        public VisionRequestExecutor<Candlestick> getKlines(String symbol, CandlestickInterval candlestickInterval,
-                        String year, String month) {
-                return new CandlestickRequestExecutor(
-                                service.getMonthlyKlines(symbol.toUpperCase(), candlestickInterval.getValue(), year,
-                                                month));
-        }
+    /**
+     * Get the compressed csv containing the candlestick data for a
+     * symbol (monthly)
+     * 
+     * @param symbol              The trading pair
+     * @param candlestickInterval The interval
+     * @param year                The year
+     * @param month               The month
+     * @return The zip file containing the data
+     */
+    public VisionRequestExecutor<CandlestickBar> getKlines(String symbol, CandlestickInterval candlestickInterval,
+            String year, String month) {
+        return new CandlestickRequestExecutor(
+                service.getMonthlyKlines(symbol.toUpperCase(), candlestickInterval.getValue(), year,
+                        month));
+    }
 
-        /**
-         * Get the checksum of the zip archive (monthly)
-         * 
-         * @param symbol              The trading pair
-         * @param candlestickInterval The interval
-         * @param year                The year
-         * @param month               The month
-         * @return The zip file containing the data
-         */
-        public ChecksumRequestExecutor getKlinesChecksum(String symbol,
-                        CandlestickInterval candlestickInterval, String year, String month) {
-                return new ChecksumRequestExecutor(
-                                service.getMonthlyKlinesChecksum(symbol.toUpperCase(), candlestickInterval.getValue(),
-                                                year, month));
-        }
+    /**
+     * Get the checksum of the zip archive (monthly)
+     * 
+     * @param symbol              The trading pair
+     * @param candlestickInterval The interval
+     * @param year                The year
+     * @param month               The month
+     * @return The zip file containing the data
+     */
+    public ChecksumRequestExecutor getKlinesChecksum(String symbol,
+            CandlestickInterval candlestickInterval, String year, String month) {
+        return new ChecksumRequestExecutor(
+                service.getMonthlyKlinesChecksum(symbol.toUpperCase(), candlestickInterval.getValue(),
+                        year, month));
+    }
 
-        /**
-         * Get the compressed csv containing the candlestick data for a
-         * symbol (daily)
-         * 
-         * @param symbol              The trading pair
-         * @param candlestickInterval The interval
-         * @param year                The year
-         * @param month               The month
-         * @param day                 The day
-         * @return The zip file containing the data
-         */
-        public VisionRequestExecutor<Candlestick> getKlines(String symbol, CandlestickInterval candlestickInterval,
-                        String year, String month, String day) {
-                return new CandlestickRequestExecutor(
-                                service.getDailyKlines(symbol.toUpperCase(), candlestickInterval.getValue(), year,
-                                                month, day));
-        }
+    /**
+     * Get the compressed csv containing the candlestick data for a
+     * symbol (daily)
+     * 
+     * @param symbol              The trading pair
+     * @param candlestickInterval The interval
+     * @param year                The year
+     * @param month               The month
+     * @param day                 The day
+     * @return The zip file containing the data
+     */
+    public VisionRequestExecutor<CandlestickBar> getKlines(String symbol, CandlestickInterval candlestickInterval,
+            String year, String month, String day) {
+        return new CandlestickRequestExecutor(
+                service.getDailyKlines(symbol.toUpperCase(), candlestickInterval.getValue(), year,
+                        month, day));
+    }
 
-        /**
-         * Get the checksum of the zip archive (daily)
-         * 
-         * @param symbol              The trading pair
-         * @param candlestickInterval The interval
-         * @param year                The year
-         * @param month               The month
-         * @param day                 The day
-         * @return The zip file containing the data
-         */
-        public ChecksumRequestExecutor getKlinesChecksum(String symbol,
-                        CandlestickInterval candlestickInterval, String year, String month, String day) {
-                return new ChecksumRequestExecutor(
-                                service.getDailyKlinesChecksum(symbol.toUpperCase(), candlestickInterval.getValue(),
-                                                year,
-                                                month, day));
-        }
+    /**
+     * Get the checksum of the zip archive (daily)
+     * 
+     * @param symbol              The trading pair
+     * @param candlestickInterval The interval
+     * @param year                The year
+     * @param month               The month
+     * @param day                 The day
+     * @return The zip file containing the data
+     */
+    public ChecksumRequestExecutor getKlinesChecksum(String symbol,
+            CandlestickInterval candlestickInterval, String year, String month, String day) {
+        return new ChecksumRequestExecutor(
+                service.getDailyKlinesChecksum(symbol.toUpperCase(), candlestickInterval.getValue(),
+                        year,
+                        month, day));
+    }
 
-        // Trades
+    // Trades
 
-        /**
-         * Get the compressed csv containing the trades data for a
-         * symbol (monthly)
-         * 
-         * @param symbol The trading pair
-         * @param year   The year
-         * @param month  The month
-         * @return The zip file containing the data
-         */
-        public VisionRequestExecutor<Trade> getTrades(String symbol, String year, String month) {
-                return new TradeRequestExecutor(
-                                service.getMonthlyTrades(symbol.toUpperCase(), year, month));
-        }
+    /**
+     * Get the compressed csv containing the trades data for a
+     * symbol (monthly)
+     * 
+     * @param symbol The trading pair
+     * @param year   The year
+     * @param month  The month
+     * @return The zip file containing the data
+     */
+    public VisionRequestExecutor<Trade> getTrades(String symbol, String year, String month) {
+        return new TradeRequestExecutor(
+                service.getMonthlyTrades(symbol.toUpperCase(), year, month));
+    }
 
-        /**
-         * Get the checksum of the zip archive (monthly)
-         * 
-         * @param symbol The trading pair
-         * @param year   The year
-         * @param month  The month
-         * @return The zip file containing the data
-         */
-        public ChecksumRequestExecutor getTradesChecksum(String symbol, String year, String month) {
-                return new ChecksumRequestExecutor(
-                                service.getMonthlyTradesChecksum(symbol.toUpperCase(), year, month));
-        }
+    /**
+     * Get the checksum of the zip archive (monthly)
+     * 
+     * @param symbol The trading pair
+     * @param year   The year
+     * @param month  The month
+     * @return The zip file containing the data
+     */
+    public ChecksumRequestExecutor getTradesChecksum(String symbol, String year, String month) {
+        return new ChecksumRequestExecutor(
+                service.getMonthlyTradesChecksum(symbol.toUpperCase(), year, month));
+    }
 
-        /**
-         * Get the compressed csv containing the trades data for a
-         * symbol (daily)
-         * 
-         * @param symbol The trading pair
-         * @param year   The year
-         * @param month  The month
-         * @param day    The day
-         * @return The zip file containing the data
-         */
-        public VisionRequestExecutor<Trade> getTrades(String symbol, String year, String month, String day) {
-                return new TradeRequestExecutor(
-                                service.getDailyTrades(symbol.toUpperCase(), year, month, day));
-        }
+    /**
+     * Get the compressed csv containing the trades data for a
+     * symbol (daily)
+     * 
+     * @param symbol The trading pair
+     * @param year   The year
+     * @param month  The month
+     * @param day    The day
+     * @return The zip file containing the data
+     */
+    public VisionRequestExecutor<Trade> getTrades(String symbol, String year, String month, String day) {
+        return new TradeRequestExecutor(
+                service.getDailyTrades(symbol.toUpperCase(), year, month, day));
+    }
 
-        /**
-         * Get the checksum of the zip archive (daily)
-         * 
-         * @param symbol The trading pair
-         * @param year   The year
-         * @param month  The month
-         * @param day    The day
-         * @return The zip file containing the data
-         */
-        public ChecksumRequestExecutor getTradesChecksum(String symbol, String year, String month,
-                        String day) {
-                return new ChecksumRequestExecutor(
-                                service.getDailyTradesChecksum(symbol.toUpperCase(), year, month, day));
-        }
+    /**
+     * Get the checksum of the zip archive (daily)
+     * 
+     * @param symbol The trading pair
+     * @param year   The year
+     * @param month  The month
+     * @param day    The day
+     * @return The zip file containing the data
+     */
+    public ChecksumRequestExecutor getTradesChecksum(String symbol, String year, String month,
+            String day) {
+        return new ChecksumRequestExecutor(
+                service.getDailyTradesChecksum(symbol.toUpperCase(), year, month, day));
+    }
 
-        // AggTrades
+    // AggTrades
 
-        /**
-         * Get the compressed csv containing the aggTrades data for a
-         * symbol (monthly)
-         * 
-         * @param symbol The trading pair
-         * @param year   The year
-         * @param month  The month
-         * @return The zip file containing the data
-         */
-        public VisionRequestExecutor<AggTrade> getAggTrades(String symbol, String year, String month) {
-                return new AggTradeRequestExecutor(
-                                service.getMonthlyAggTrades(symbol.toUpperCase(), year, month));
-        }
+    /**
+     * Get the compressed csv containing the aggTrades data for a
+     * symbol (monthly)
+     * 
+     * @param symbol The trading pair
+     * @param year   The year
+     * @param month  The month
+     * @return The zip file containing the data
+     */
+    public VisionRequestExecutor<AggTrade> getAggTrades(String symbol, String year, String month) {
+        return new AggTradeRequestExecutor(
+                service.getMonthlyAggTrades(symbol.toUpperCase(), year, month));
+    }
 
-        /**
-         * Get the checksum of the zip archive (monthly)
-         * 
-         * @param symbol The trading pair
-         * @param year   The year
-         * @param month  The month
-         * @return The zip file containing the data
-         */
-        public ChecksumRequestExecutor getAggTradesChecksum(String symbol, String year, String month) {
-                return new ChecksumRequestExecutor(
-                                service.getMonthlyAggTradesChecksum(symbol.toUpperCase(), year, month));
-        }
+    /**
+     * Get the checksum of the zip archive (monthly)
+     * 
+     * @param symbol The trading pair
+     * @param year   The year
+     * @param month  The month
+     * @return The zip file containing the data
+     */
+    public ChecksumRequestExecutor getAggTradesChecksum(String symbol, String year, String month) {
+        return new ChecksumRequestExecutor(
+                service.getMonthlyAggTradesChecksum(symbol.toUpperCase(), year, month));
+    }
 
-        /**
-         * Get the compressed csv containing the aggTrades data for a
-         * symbol (daily)
-         * 
-         * @param symbol The trading pair
-         * @param year   The year
-         * @param month  The month
-         * @param day    The day
-         * @return The zip file containing the data
-         */
-        public VisionRequestExecutor<AggTrade> getAggTrades(String symbol, String year, String month, String day) {
-                return new AggTradeRequestExecutor(
-                                service.getDailyAggTrades(symbol.toUpperCase(), year, month, day));
-        }
+    /**
+     * Get the compressed csv containing the aggTrades data for a
+     * symbol (daily)
+     * 
+     * @param symbol The trading pair
+     * @param year   The year
+     * @param month  The month
+     * @param day    The day
+     * @return The zip file containing the data
+     */
+    public VisionRequestExecutor<AggTrade> getAggTrades(String symbol, String year, String month, String day) {
+        return new AggTradeRequestExecutor(
+                service.getDailyAggTrades(symbol.toUpperCase(), year, month, day));
+    }
 
-        /**
-         * Get the checksum of the zip archive (daily)
-         * 
-         * @param symbol The trading pair
-         * @param year   The year
-         * @param month  The month
-         * @param day    The day
-         * @return The zip file containing the data
-         */
-        public ChecksumRequestExecutor getAggTradesChecksum(String symbol, String year, String month,
-                        String day) {
-                return new ChecksumRequestExecutor(
-                                service.getDailyAggTradesChecksum(symbol.toUpperCase(), year, month, day));
-        }
+    /**
+     * Get the checksum of the zip archive (daily)
+     * 
+     * @param symbol The trading pair
+     * @param year   The year
+     * @param month  The month
+     * @param day    The day
+     * @return The zip file containing the data
+     */
+    public ChecksumRequestExecutor getAggTradesChecksum(String symbol, String year, String month,
+            String day) {
+        return new ChecksumRequestExecutor(
+                service.getDailyAggTradesChecksum(symbol.toUpperCase(), year, month, day));
+    }
 }

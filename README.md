@@ -21,7 +21,7 @@ Binance4j-vision helps download Binance public data easily. Only SPOT data is av
   <version>1.1.5</version>
 </dependency>
 ```
-
+ 
 ## Usage
 
 ### Instantiate the Spot client

@@ -10,6 +10,7 @@ import java.util.zip.ZipInputStream;
 
 import com.binance4j.core.callback.ApiCallback;
 import com.binance4j.core.exception.ApiException;
+import com.binance4j.core.exception.NotFoundException;
 import com.binance4j.core.request.RequestExecutor;
 
 import okhttp3.ResponseBody;
@@ -37,12 +38,13 @@ public abstract class VisionRequestExecutor<T> extends RequestExecutor<ResponseB
      * Downloads the zip file synchronously
      * 
      * @return The zip file
+     * @throws NotFoundException
      */
-    public ZipInputStream getZip() {
+    public ZipInputStream getZip() throws NotFoundException {
         try {
             return responseToZip(execute());
         } catch (ApiException e) {
-            throw new RuntimeException("Unable to download file");
+            throw new NotFoundException();
         }
     }
 
@@ -92,9 +94,10 @@ public abstract class VisionRequestExecutor<T> extends RequestExecutor<ResponseB
      * list)
      * 
      * @return The deserialized data
+     * @throws NotFoundException
      * @throws IOException
      */
-    public List<List<String>> getCSV() throws IOException {
+    public List<List<String>> getCSV() throws IOException, NotFoundException {
         return extractCSV(getZip());
     }
 
@@ -112,9 +115,8 @@ public abstract class VisionRequestExecutor<T> extends RequestExecutor<ResponseB
                 try {
                     callback.onResponse(extractCSV(responseToZip(res)));
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    onFailure(new NotFoundException());
                 }
-
             }
 
             @Override
@@ -151,8 +153,9 @@ public abstract class VisionRequestExecutor<T> extends RequestExecutor<ResponseB
      * 
      * @return The deserialized data
      * @throws IOException
+     * @throws NotFoundException
      */
-    public List<T> getData() throws IOException {
+    public List<T> getData() throws IOException, NotFoundException {
         return csvToObject(getCSV());
     }
 

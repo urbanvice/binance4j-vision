@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import com.binance4j.core.callback.ApiCallback;
 import com.binance4j.core.exception.ApiException;
+import com.binance4j.core.exception.NotFoundException;
 import com.binance4j.core.request.RequestExecutor;
 import com.binance4j.vision.spot.Checksum;
 
@@ -42,8 +43,12 @@ public class ChecksumRequestExecutor extends RequestExecutor<ResponseBody> {
         return new Checksum(data[0], data[1]);
     }
 
-    public Checksum getChecksum() throws ApiException {
-        return resToChecksum(execute());
+    public Checksum getChecksum() throws NotFoundException {
+        try {
+            return resToChecksum(execute());
+        } catch (ApiException e) {
+            throw new NotFoundException();
+        }
     }
 
     /**

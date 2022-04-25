@@ -1,5 +1,6 @@
 package com.binance4j.vision.spot;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -8,7 +9,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.zip.ZipInputStream;
 
+import com.binance4j.core.callback.ApiCallback;
+import com.binance4j.core.exception.ApiException;
+import com.binance4j.core.exception.NotFoundException;
 import com.binance4j.vision.enums.CandlestickInterval;
 import com.binance4j.vision.exception.InvalidDateException;
 
@@ -26,6 +31,37 @@ public class SpotClientTest {
 
     public SpotClientTest() {
         client = new SpotClient();
+    }
+
+    @Test
+    @DisplayName("It should throw a NotFoundException")
+    void testNotFoundSync()
+            throws InvalidDateException, NotFoundException {
+        Exception exception = assertThrows(
+                NotFoundException.class,
+                () -> client.getAggTradesChecksum(symbol, "2018", month, day).getChecksum());
+
+        assertTrue(exception.getMessage().contains(new NotFoundException().getMessage()));
+    }
+
+    @Test
+    @DisplayName("It should fail and return a NotFoundException")
+    void testNotFoundAsync() throws InvalidDateException, InterruptedException, ExecutionException {
+        CompletableFuture<Void> future = new CompletableFuture<>();
+        client.getKlines(symbol, interval, "2018", month, day).getZip(new ApiCallback<ZipInputStream>() {
+            @Override
+            public void onFailure(ApiException exception) {
+                assertEquals(exception.getMessage(), new NotFoundException().getMessage());
+                future.complete(null);
+            }
+
+            @Override
+            public void onResponse(ZipInputStream response) {
+                assertTrue(false);
+                future.complete(null);
+            }
+        });
+        assertNull(future.get());
     }
 
     @Test
@@ -141,7 +177,7 @@ public class SpotClientTest {
     void testInvalidDate() {
         Exception exception = assertThrows(
                 InvalidDateException.class,
-                () -> client.getAggTradesChecksum(symbol, year, month, "31").getChecksum());
+                () -> client.getAggTradesChecksum(symbol, year, month, "32").getChecksum());
 
         assertTrue(exception.getMessage().contains(new InvalidDateException().getMessage()));
     }

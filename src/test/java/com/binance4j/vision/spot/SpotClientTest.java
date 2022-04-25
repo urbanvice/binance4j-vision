@@ -2,6 +2,7 @@ package com.binance4j.vision.spot;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -9,7 +10,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import com.binance4j.vision.enums.CandlestickInterval;
+import com.binance4j.vision.exception.InvalidDateException;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class SpotClientTest {
@@ -26,7 +29,8 @@ public class SpotClientTest {
     }
 
     @Test
-    void testGetKlines() throws IOException, InterruptedException, ExecutionException {
+    @DisplayName("It should return the klines")
+    void testGetKlines() throws IOException, InterruptedException, ExecutionException, InvalidDateException {
         CompletableFuture<Void> future = new CompletableFuture<>();
         client.getKlines(symbol, interval, year, month, day)
                 .getData(cb -> {
@@ -52,7 +56,8 @@ public class SpotClientTest {
     }
 
     @Test
-    void testKlinesChecksum() throws InterruptedException, ExecutionException {
+    @DisplayName("It should return the klines cheksum")
+    void testKlinesChecksum() throws InterruptedException, ExecutionException, InvalidDateException {
         CompletableFuture<Void> future = new CompletableFuture<>();
         client.getKlinesChecksum(symbol, interval, year, month, day).getChecksum(cb -> {
             assertNotNull(cb.getChecksum());
@@ -63,7 +68,8 @@ public class SpotClientTest {
     }
 
     @Test
-    void testGetTrades() throws IOException, InterruptedException, ExecutionException {
+    @DisplayName("It should return the trades")
+    void testGetTrades() throws IOException, InterruptedException, ExecutionException, InvalidDateException {
         CompletableFuture<Void> future = new CompletableFuture<>();
         client.getTrades(symbol, year, month, day)
                 .getData(cb -> {
@@ -84,7 +90,8 @@ public class SpotClientTest {
     }
 
     @Test
-    void testTradesChecksum() throws InterruptedException, ExecutionException {
+    @DisplayName("It should return the trades checksum")
+    void testTradesChecksum() throws InterruptedException, ExecutionException, InvalidDateException {
         CompletableFuture<Void> future = new CompletableFuture<>();
         client.getTradesChecksum(symbol, year, month, day).getChecksum(cb -> {
             assertNotNull(cb.getChecksum());
@@ -95,7 +102,8 @@ public class SpotClientTest {
     }
 
     @Test
-    void testGetAggTrades() throws IOException, InterruptedException, ExecutionException {
+    @DisplayName("It should return the agg trades")
+    void testGetAggTrades() throws IOException, InterruptedException, ExecutionException, InvalidDateException {
         CompletableFuture<Void> future = new CompletableFuture<>();
         client.getAggTrades(symbol, year, month, day)
                 .getData(cb -> {
@@ -117,7 +125,8 @@ public class SpotClientTest {
     }
 
     @Test
-    void testAggTradesChecksum() throws InterruptedException, ExecutionException {
+    @DisplayName("It should return the agg trades cheksum")
+    void testAggTradesChecksum() throws InterruptedException, ExecutionException, InvalidDateException {
         CompletableFuture<Void> future = new CompletableFuture<>();
         client.getAggTradesChecksum(symbol, year, month, day).getChecksum(cb -> {
             assertNotNull(cb.getChecksum());
@@ -127,4 +136,13 @@ public class SpotClientTest {
         assertNull(future.get());
     }
 
+    @Test
+    @DisplayName("It should throw an InvalidDateException")
+    void testInvalidDate() {
+        Exception exception = assertThrows(
+                InvalidDateException.class,
+                () -> client.getAggTradesChecksum(symbol, year, month, "31").getChecksum());
+
+        assertTrue(exception.getMessage().contains(new InvalidDateException().getMessage()));
+    }
 }

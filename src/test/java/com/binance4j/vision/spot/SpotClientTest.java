@@ -13,9 +13,8 @@ import java.util.zip.ZipInputStream;
 
 import com.binance4j.core.callback.ApiCallback;
 import com.binance4j.core.exception.ApiException;
-import com.binance4j.core.exception.NotFoundException;
+import com.binance4j.core.exception.InvalidDateException;
 import com.binance4j.core.market.CandlestickInterval;
-import com.binance4j.vision.exception.InvalidDateException;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,24 +33,24 @@ public class SpotClientTest {
     }
 
     @Test
-    @DisplayName("It should throw a NotFoundException")
+    @DisplayName("It should throw a ApiException")
     void testNotFoundSync()
-            throws InvalidDateException, NotFoundException {
+            throws ApiException {
         Exception exception = assertThrows(
-                NotFoundException.class,
+                ApiException.class,
                 () -> client.getAggTradesChecksum(symbol, "2018", month, day).getChecksum());
 
-        assertTrue(exception.getMessage().contains(new NotFoundException().getMessage()));
+        assertEquals(404, (new ApiException(404, "Not Found").getCode()));
     }
 
     @Test
-    @DisplayName("It should fail and return a NotFoundException")
-    void testNotFoundAsync() throws InvalidDateException, InterruptedException, ExecutionException {
+    @DisplayName("It should fail and return a ApiException")
+    void testNotFoundAsync() throws InterruptedException, ExecutionException, ApiException {
         CompletableFuture<Void> future = new CompletableFuture<>();
         client.getKlines(symbol, interval, "2018", month, day).getZip(new ApiCallback<ZipInputStream>() {
             @Override
             public void onFailure(ApiException exception) {
-                assertEquals(exception.getMessage(), new NotFoundException().getMessage());
+                assertEquals(exception.getMessage(), new ApiException(404, "Not Found").getMessage());
                 future.complete(null);
             }
 
@@ -66,7 +65,7 @@ public class SpotClientTest {
 
     @Test
     @DisplayName("It should return the klines")
-    void testGetKlines() throws IOException, InterruptedException, ExecutionException, InvalidDateException {
+    void testGetKlines() throws InterruptedException, ExecutionException, ApiException {
         CompletableFuture<Void> future = new CompletableFuture<>();
         client.getKlines(symbol, interval, year, month, day)
                 .getData(cb -> {
@@ -93,7 +92,7 @@ public class SpotClientTest {
 
     @Test
     @DisplayName("It should return the klines cheksum")
-    void testKlinesChecksum() throws InterruptedException, ExecutionException, InvalidDateException {
+    void testKlinesChecksum() throws InterruptedException, ExecutionException, ApiException {
         CompletableFuture<Void> future = new CompletableFuture<>();
         client.getKlinesChecksum(symbol, interval, year, month, day).getChecksum(cb -> {
             assertNotNull(cb.getChecksum());
@@ -105,7 +104,7 @@ public class SpotClientTest {
 
     @Test
     @DisplayName("It should return the trades")
-    void testGetTrades() throws IOException, InterruptedException, ExecutionException, InvalidDateException {
+    void testGetTrades() throws IOException, InterruptedException, ExecutionException, ApiException {
         CompletableFuture<Void> future = new CompletableFuture<>();
         client.getTrades(symbol, year, month, day)
                 .getData(cb -> {
@@ -127,7 +126,7 @@ public class SpotClientTest {
 
     @Test
     @DisplayName("It should return the trades checksum")
-    void testTradesChecksum() throws InterruptedException, ExecutionException, InvalidDateException {
+    void testTradesChecksum() throws InterruptedException, ExecutionException, ApiException {
         CompletableFuture<Void> future = new CompletableFuture<>();
         client.getTradesChecksum(symbol, year, month, day).getChecksum(cb -> {
             assertNotNull(cb.getChecksum());
@@ -139,7 +138,7 @@ public class SpotClientTest {
 
     @Test
     @DisplayName("It should return the agg trades")
-    void testGetAggTrades() throws IOException, InterruptedException, ExecutionException, InvalidDateException {
+    void testGetAggTrades() throws IOException, InterruptedException, ExecutionException, ApiException {
         CompletableFuture<Void> future = new CompletableFuture<>();
         client.getAggTrades(symbol, year, month, day)
                 .getData(cb -> {
@@ -162,7 +161,7 @@ public class SpotClientTest {
 
     @Test
     @DisplayName("It should return the agg trades cheksum")
-    void testAggTradesChecksum() throws InterruptedException, ExecutionException, InvalidDateException {
+    void testAggTradesChecksum() throws InterruptedException, ExecutionException, ApiException {
         CompletableFuture<Void> future = new CompletableFuture<>();
         client.getAggTradesChecksum(symbol, year, month, day).getChecksum(cb -> {
             assertNotNull(cb.getChecksum());
@@ -173,10 +172,10 @@ public class SpotClientTest {
     }
 
     @Test
-    @DisplayName("It should throw an InvalidDateException")
+    @DisplayName("It should throw an ApiException")
     void testInvalidDate() {
         Exception exception = assertThrows(
-                InvalidDateException.class,
+                ApiException.class,
                 () -> client.getAggTradesChecksum(symbol, year, month, "32").getChecksum());
 
         assertTrue(exception.getMessage().contains(new InvalidDateException().getMessage()));

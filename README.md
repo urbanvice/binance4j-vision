@@ -38,7 +38,11 @@ In a zip format
 
 ```java
 //daily
-ZipInputStream zis = client.getKlines(symbol, interval, year, month, day).getZip();
+try{
+  ZipInputStream zis = client.getKlines(symbol, interval, year, month, day).getZip();
+} catch (ApiException | ApiException e) {
+  e.printStackTrace();
+}
 ```
 
 ```java

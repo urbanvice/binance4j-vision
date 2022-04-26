@@ -3,10 +3,11 @@ package com.binance4j.vision.spot;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import com.binance4j.core.exception.ApiException;
+import com.binance4j.core.exception.InvalidDateException;
 import com.binance4j.core.market.AggTrade;
 import com.binance4j.core.market.CandlestickBar;
 import com.binance4j.core.market.CandlestickInterval;
-import com.binance4j.vision.exception.InvalidDateException;
 import com.binance4j.vision.executor.AggTradeRequestExecutor;
 import com.binance4j.vision.executor.CandlestickRequestExecutor;
 import com.binance4j.vision.executor.ChecksumRequestExecutor;
@@ -37,7 +38,7 @@ public class SpotClient {
      * @return The zip file containing the data
      */
     public VisionRequestExecutor<CandlestickBar> getKlines(String symbol, CandlestickInterval candlestickInterval,
-            String year, String month) throws InvalidDateException {
+            String year, String month) throws ApiException {
         if (!isValidDate(year, month))
             throw new InvalidDateException();
 
@@ -56,7 +57,7 @@ public class SpotClient {
      * @return The zip file containing the data
      */
     public ChecksumRequestExecutor getKlinesChecksum(String symbol,
-            CandlestickInterval candlestickInterval, String year, String month) throws InvalidDateException {
+            CandlestickInterval candlestickInterval, String year, String month) throws ApiException {
         if (!isValidDate(year, month))
             throw new InvalidDateException();
 
@@ -77,7 +78,7 @@ public class SpotClient {
      * @return The zip file containing the data
      */
     public VisionRequestExecutor<CandlestickBar> getKlines(String symbol, CandlestickInterval candlestickInterval,
-            String year, String month, String day) throws InvalidDateException {
+            String year, String month, String day) throws ApiException {
         if (!isValidDate(year, month, day))
             throw new InvalidDateException();
 
@@ -98,7 +99,7 @@ public class SpotClient {
      */
     public ChecksumRequestExecutor getKlinesChecksum(String symbol,
             CandlestickInterval candlestickInterval, String year, String month, String day)
-            throws InvalidDateException {
+            throws ApiException {
         if (!isValidDate(year, month, day))
             throw new InvalidDateException();
 
@@ -120,7 +121,7 @@ public class SpotClient {
      * @return The zip file containing the data
      */
     public VisionRequestExecutor<Trade> getTrades(String symbol, String year, String month)
-            throws InvalidDateException {
+            throws ApiException {
         if (!isValidDate(year, month))
             throw new InvalidDateException();
 
@@ -137,7 +138,7 @@ public class SpotClient {
      * @return The zip file containing the data
      */
     public ChecksumRequestExecutor getTradesChecksum(String symbol, String year, String month)
-            throws InvalidDateException {
+            throws ApiException {
         if (!isValidDate(year, month))
             throw new InvalidDateException();
 
@@ -156,7 +157,7 @@ public class SpotClient {
      * @return The zip file containing the data
      */
     public VisionRequestExecutor<Trade> getTrades(String symbol, String year, String month, String day)
-            throws InvalidDateException {
+            throws ApiException {
         if (!isValidDate(year, month, day))
             throw new InvalidDateException();
 
@@ -174,7 +175,7 @@ public class SpotClient {
      * @return The zip file containing the data
      */
     public ChecksumRequestExecutor getTradesChecksum(String symbol, String year, String month,
-            String day) throws InvalidDateException {
+            String day) throws ApiException {
         if (!isValidDate(year, month, day))
             throw new InvalidDateException();
 
@@ -194,7 +195,7 @@ public class SpotClient {
      * @return The zip file containing the data
      */
     public VisionRequestExecutor<AggTrade> getAggTrades(String symbol, String year, String month)
-            throws InvalidDateException {
+            throws ApiException {
         if (!isValidDate(year, month))
             throw new InvalidDateException();
 
@@ -211,7 +212,7 @@ public class SpotClient {
      * @return The zip file containing the data
      */
     public ChecksumRequestExecutor getAggTradesChecksum(String symbol, String year, String month)
-            throws InvalidDateException {
+            throws ApiException {
         if (!isValidDate(year, month))
             throw new InvalidDateException();
 
@@ -230,7 +231,7 @@ public class SpotClient {
      * @return The zip file containing the data
      */
     public VisionRequestExecutor<AggTrade> getAggTrades(String symbol, String year, String month, String day)
-            throws InvalidDateException {
+            throws ApiException {
         if (!isValidDate(year, month, day))
             throw new InvalidDateException();
 
@@ -248,7 +249,7 @@ public class SpotClient {
      * @return The zip file containing the data
      */
     public ChecksumRequestExecutor getAggTradesChecksum(String symbol, String year, String month,
-            String day) throws InvalidDateException {
+            String day) throws ApiException {
         if (!isValidDate(year, month, day))
             throw new InvalidDateException();
 

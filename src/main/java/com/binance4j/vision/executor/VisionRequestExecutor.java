@@ -1,7 +1,6 @@
 package com.binance4j.vision.executor;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,6 +9,7 @@ import java.util.zip.ZipInputStream;
 
 import com.binance4j.core.callback.ApiCallback;
 import com.binance4j.core.exception.ApiException;
+import com.binance4j.core.exception.ApiIOException;
 import com.binance4j.core.exception.NotFoundException;
 import com.binance4j.core.request.RequestExecutor;
 
@@ -38,9 +38,9 @@ public abstract class VisionRequestExecutor<T> extends RequestExecutor<ResponseB
      * Downloads the zip file synchronously
      * 
      * @return The zip file
-     * @throws NotFoundException
+     * @throws ApiException
      */
-    public ZipInputStream getZip() throws NotFoundException {
+    public ZipInputStream getZip() throws ApiException {
         try {
             return responseToZip(execute());
         } catch (ApiException e) {
@@ -62,26 +62,6 @@ public abstract class VisionRequestExecutor<T> extends RequestExecutor<ResponseB
             }
 
             @Override
-            public void onInternalError() {
-                callback.onInternalError();
-            }
-
-            @Override
-            public void onRateLimitBan() {
-                callback.onRateLimitBan();
-            }
-
-            @Override
-            public void onRateLimitBreak() {
-                callback.onRateLimitBreak();
-            }
-
-            @Override
-            public void onWAFLimit() {
-                callback.onWAFLimit();
-            }
-
-            @Override
             public void onResponse(ResponseBody res) {
                 callback.onResponse(responseToZip(res));
 
@@ -94,10 +74,9 @@ public abstract class VisionRequestExecutor<T> extends RequestExecutor<ResponseB
      * list)
      * 
      * @return The deserialized data
-     * @throws NotFoundException
-     * @throws IOException
+     * @throws ApiException
      */
-    public List<List<String>> getCSV() throws IOException, NotFoundException {
+    public List<List<String>> getCSV() throws ApiException {
         return extractCSV(getZip());
     }
 
@@ -114,8 +93,8 @@ public abstract class VisionRequestExecutor<T> extends RequestExecutor<ResponseB
             public void onResponse(ResponseBody res) {
                 try {
                     callback.onResponse(extractCSV(responseToZip(res)));
-                } catch (IOException e) {
-                    onFailure(new NotFoundException());
+                } catch (ApiException e) {
+                    onFailure(e);
                 }
             }
 
@@ -123,27 +102,6 @@ public abstract class VisionRequestExecutor<T> extends RequestExecutor<ResponseB
             public void onFailure(ApiException exception) {
                 callback.onFailure(exception);
             }
-
-            @Override
-            public void onInternalError() {
-                callback.onInternalError();
-            }
-
-            @Override
-            public void onRateLimitBan() {
-                callback.onRateLimitBan();
-            }
-
-            @Override
-            public void onRateLimitBreak() {
-                callback.onRateLimitBreak();
-            }
-
-            @Override
-            public void onWAFLimit() {
-                callback.onWAFLimit();
-            }
-
         });
     }
 
@@ -152,10 +110,9 @@ public abstract class VisionRequestExecutor<T> extends RequestExecutor<ResponseB
      * list of objects
      * 
      * @return The deserialized data
-     * @throws IOException
-     * @throws NotFoundException
+     * @throws ApiException
      */
-    public List<T> getData() throws IOException, NotFoundException {
+    public List<T> getData() throws ApiException {
         return csvToObject(getCSV());
     }
 
@@ -173,34 +130,14 @@ public abstract class VisionRequestExecutor<T> extends RequestExecutor<ResponseB
             public void onResponse(ResponseBody res) {
                 try {
                     callback.onResponse(csvToObject(extractCSV(responseToZip(res))));
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                } catch (ApiException e) {
+                    onFailure(e);
                 }
             }
 
             @Override
             public void onFailure(ApiException exception) {
                 callback.onFailure(exception);
-            }
-
-            @Override
-            public void onInternalError() {
-                callback.onInternalError();
-            }
-
-            @Override
-            public void onRateLimitBan() {
-                callback.onRateLimitBan();
-            }
-
-            @Override
-            public void onRateLimitBreak() {
-                callback.onRateLimitBreak();
-            }
-
-            @Override
-            public void onWAFLimit() {
-                callback.onWAFLimit();
             }
         });
     }
@@ -221,18 +158,22 @@ public abstract class VisionRequestExecutor<T> extends RequestExecutor<ResponseB
      * @param zis the zip stream
      * @return The data as a list of string arrays
      */
-    protected List<List<String>> extractCSV(ZipInputStream zis) throws IOException {
-        List<List<String>> data = new ArrayList<>();
-        Scanner sc = new Scanner(zis);
+    protected List<List<String>> extractCSV(ZipInputStream zis) throws ApiException {
+        try {
+            List<List<String>> data = new ArrayList<>();
+            Scanner sc = new Scanner(zis);
 
-        zis.getNextEntry();
+            zis.getNextEntry();
 
-        while (sc.hasNextLine()) {
-            data.add(Arrays.asList(sc.nextLine().split(",")));
+            while (sc.hasNextLine()) {
+                data.add(Arrays.asList(sc.nextLine().split(",")));
+            }
+
+            sc.close();
+            return data;
+        } catch (IOException e) {
+            throw new ApiIOException();
         }
-
-        sc.close();
-        return data;
     }
 
     /**
@@ -242,18 +183,17 @@ public abstract class VisionRequestExecutor<T> extends RequestExecutor<ResponseB
      * @return The data as a list of objects
      */
     protected List<T> csvToObject(Class<T> clazz,
-            List<List<String>> input) {
-        return input.stream()
-                .map(csv -> {
-                    try {
-                        // The class must have a constructor that accepts a 2d list
-                        return clazz.getConstructor(List.class).newInstance(csv);
-                    } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-                            | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-                        throw new RuntimeException(e);
-                    }
-                })
-                .toList();
+            List<List<String>> input) throws ApiException {
+        List<T> obj = new ArrayList<>();
+        for (List<String> csv : input) {
+            try {
+                // The class must have a constructor that accepts a 2d list
+                obj.add(clazz.getConstructor(List.class).newInstance(csv));
+            } catch (Exception e) {
+                throw new ApiException(-300, e.getMessage());
+            }
+        }
+        return obj;
     }
 
     /**
@@ -263,5 +203,5 @@ public abstract class VisionRequestExecutor<T> extends RequestExecutor<ResponseB
      * @param input The csv input
      * @return A list of
      */
-    protected abstract List<T> csvToObject(List<List<String>> input);
+    protected abstract List<T> csvToObject(List<List<String>> input) throws ApiException;
 }

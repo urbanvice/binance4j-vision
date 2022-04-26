@@ -34,13 +34,12 @@ public class SpotClientTest {
 
     @Test
     @DisplayName("It should throw a ApiException")
-    void testNotFoundSync()
-            throws ApiException {
-        Exception exception = assertThrows(
-                ApiException.class,
-                () -> client.getAggTradesChecksum(symbol, "2018", month, day).getChecksum());
-
-        assertEquals(404, (new ApiException(404, "Not Found").getCode()));
+    void testNotFoundSync() {
+        try {
+            client.getAggTradesChecksum(symbol, "2018", month, day).getChecksum();
+        } catch (ApiException e) {
+            assertEquals(e.getCode(), 404);
+        }
     }
 
     @Test

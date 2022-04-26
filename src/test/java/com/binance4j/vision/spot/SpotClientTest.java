@@ -14,7 +14,7 @@ import java.util.zip.ZipInputStream;
 import com.binance4j.core.callback.ApiCallback;
 import com.binance4j.core.exception.ApiException;
 import com.binance4j.core.exception.NotFoundException;
-import com.binance4j.vision.enums.CandlestickInterval;
+import com.binance4j.core.market.CandlestickInterval;
 import com.binance4j.vision.exception.InvalidDateException;
 
 import org.junit.jupiter.api.DisplayName;

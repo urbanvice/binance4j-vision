@@ -3,8 +3,9 @@ package com.binance4j.vision.spot;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import com.binance4j.core.kline.CandlestickBar;
-import com.binance4j.vision.enums.CandlestickInterval;
+import com.binance4j.core.market.AggTrade;
+import com.binance4j.core.market.CandlestickBar;
+import com.binance4j.core.market.CandlestickInterval;
 import com.binance4j.vision.exception.InvalidDateException;
 import com.binance4j.vision.executor.AggTradeRequestExecutor;
 import com.binance4j.vision.executor.CandlestickRequestExecutor;

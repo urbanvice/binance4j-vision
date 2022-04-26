@@ -2,7 +2,7 @@ package com.binance4j.vision.executor;
 
 import java.util.List;
 
-import com.binance4j.core.kline.CandlestickBar;
+import com.binance4j.core.market.CandlestickBar;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

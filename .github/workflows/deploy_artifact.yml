@@ -3,7 +3,13 @@ name: Deploy Artifact on Maven then merge on main
 on:
   push:
     branches:
-      - deploy
+      - main
+  pull_request:
+    types:
+    - opened
+    - synchronize
+    - reopened
+    - ready_for_review
 
 jobs:
   publish:

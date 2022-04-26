@@ -9,7 +9,6 @@ import java.util.zip.ZipInputStream;
 
 import com.binance4j.core.callback.ApiCallback;
 import com.binance4j.core.exception.ApiException;
-import com.binance4j.core.exception.ApiIOException;
 import com.binance4j.core.exception.NotFoundException;
 import com.binance4j.core.request.RequestExecutor;
 
@@ -172,7 +171,7 @@ public abstract class VisionRequestExecutor<T> extends RequestExecutor<ResponseB
             sc.close();
             return data;
         } catch (IOException e) {
-            throw new ApiIOException();
+            throw new ApiException(-400, e.getMessage());
         }
     }
 

@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import com.binance4j.core.callback.ApiCallback;
 import com.binance4j.core.exception.ApiException;
+import com.binance4j.core.exception.NotFoundException;
 import com.binance4j.core.request.RequestExecutor;
 import com.binance4j.vision.spot.Checksum;
 
@@ -46,6 +47,14 @@ public class ChecksumRequestExecutor extends RequestExecutor<ResponseBody> {
         return resToChecksum(execute());
     }
 
+    @Override
+    public ResponseBody execute() throws ApiException {
+        try {
+            return super.execute();
+        } catch (Exception e) {
+            throw new NotFoundException();
+        }
+    }
     /**
      * Downloads the zip file asynchronously
      * 
